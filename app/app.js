@@ -18,9 +18,12 @@ app.use(bodyParser.urlencoded({
 app.use(validator());
 app.use(cors())
 
-app.listen(port, () => {
+let server = app.listen(port, () => {
   console.log(`App listening at http://localhost:${port}`)
 })
 
 
 app.use("/api",routes)
+
+module.exports = server
+
