@@ -32,3 +32,9 @@ curl -X GET \
   -H 'content-type: application/json' \
   -H 'postman-token: 81b04fdc-dedd-44bb-004b-2c44b9282d02'
 ```
+or
+
+```
+http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5
+```
+
