@@ -89,7 +89,9 @@ const convertToPositive = (array)=>{
     let newArray=[];
     for(let i=0;i<array.length;i++){
         if(array[i]<0){
-            newArray.push(-1*array[i]);
+            let newNumber = Math.floor(Math 
+                .random() * (100 - 0 + 1));
+            newArray.push(newNumber);
         }
         else{
             newArray.push(array[i]);
