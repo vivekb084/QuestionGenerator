@@ -3,10 +3,10 @@ Create Subtraction Questions with options
 
 # Generate Docker Container
 ```
-docker build -t question-generator .
-
-# Download Existing Docker Image
+docker build -t question-generator
 ```
+# Download Existing Docker Image
+
 docker pull bindalvivek/question-generator:v3
 ```
 ```
