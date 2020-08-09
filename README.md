@@ -63,3 +63,20 @@ http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5
 * If Generated Mined Number is less than Subtrahend Number then swap the Numbers.
 * If any option is negative simply change it to sum random number
 
+
+# SQL Schema (SQL Query to create Database)
+
+CREATE TABLE Questions <br/>
+( <br/>
+Minued int NOT NULL, <br/>
+Subtrahend int NOT NULL, <br/>
+Option1 i,brnt NOT NULL, <br/>
+Option2 int NOT NULL, <br/>
+Option3 int NOT NULL, <br/>
+Option4 int NOT NULL, <br/>
+correctAnswer int NOT NULL <br/>
+PRIMARY KEY (Minued,Subtrahend) <br/>
+); <br />
+ <br />
+
+All fields are going to be present and there will be no duplicate value for MINUED and Subtrahend and because there is always one to one mapping ,everything can be stored in single table
