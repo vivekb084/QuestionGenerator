@@ -4,23 +4,31 @@ Create questions with options
 # Generate Docker Container
 ```
 docker build -t question-generator .
+
+# Download Existing Docker Image
+```
+docker pull bindalvivek/question-generator:v2
+```
 ```
 # Run the Container
 ```
 docker run -p 3000:3000 question-generator
 ```
-# Download Existing Docker Image
+# Run Application without Docker
 ```
-docker pull bindalvivek/question-generator:v2
+npm start
+```
+# Run Application TestCases Docker
+```
+npm test
 ```
 
 
 # Curl Request To Execute
 ```
-  curl -X POST \
-  'http://localhost:3000/subtract?%22foo%22=%22bar%22' \
+curl -X GET \
+  'http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5' \
   -H 'cache-control: no-cache' \
-  -H 'content-type: application/x-www-form-urlencoded' \
-  -H 'postman-token: 24ef7404-27a1-0f8c-12ce-4e0649377551' \
-  -d 'minuend=3&subtrahend=2&totalquestions=5'
+  -H 'content-type: application/json' \
+  -H 'postman-token: 81b04fdc-dedd-44bb-004b-2c44b9282d02'
 ```
