@@ -1,10 +1,19 @@
 # QuestionGenerator
 Create questions with options
 
-# Generate Docker Image
+# Generate Docker Container
 ```
 docker build -t question-generator .
 ```
+# Run the Container
+```
+docker run -p 3000:3000 question-generator
+```
+# Download Existing Docker Image
+```
+docker pull bindalvivek/question-generator:v2
+```
+
 
 # Curl Request To Execute
 ```
