@@ -1,6 +1,13 @@
 # QuestionGenerator
 Create Subtraction Questions with options
 
+# How To Install
+  ```
+Copy the script autoSetup.sh to any folder
+change permission of script by chmod 777 autoSetup.sh
+Run the script by ./autoSetup.sh
+  ```
+
 # Generate Docker Container
 ```
 docker build -t question-generator
