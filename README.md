@@ -56,4 +56,9 @@ http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5
 * Then Shuffle all options
 
 
+# Negative Value Handling
+
+* If number of digits in Minued is less than number of digits in Subtrahend then it will return error (Minued Digits should be more than or equal to Subtrahend Digits).
+* If Generated Mined Number is less than Subtrahend Number then swap the Numbers.
+* If any option is negative simply change it to sum random number
 
