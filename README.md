@@ -18,8 +18,9 @@ docker run -p 3000:3000 question-generator
 ```
 npm start
 ```
-# Run Application TestCases Docker
+# Run Application TestCases without Docker
 ```
+nohup npm start &
 npm test
 ```
 
