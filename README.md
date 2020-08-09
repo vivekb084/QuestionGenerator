@@ -1,5 +1,5 @@
 # QuestionGenerator
-Create questions with options
+Create Subtraction Questions with options
 
 # Generate Docker Container
 ```
@@ -37,4 +37,16 @@ or
 ```
 http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5
 ```
+
+# Code Flow 
+
+Read the Parameters <br/>
+Generate Minued number, of digits given in minued parameter
+Generate Subtrahend number, of digits given in subtrahend parameter
+Calcualte the Difference and Store in the option
+Create 2 options by subtracting 1 from actual answer and adding 1 in actual answer (So Behaviour is not always random)
+Create remaining 4th Option Randomly
+Do this process totalquestions (Value given in totalquestions parameter)times 
+
+
 
