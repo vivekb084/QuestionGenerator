@@ -21,13 +21,24 @@ const GenerateQuestion = async(req,res)=>{
         }
 
 
+
         let totalquestions = req.body.totalquestions;
         let minuedDigitCount =req.body.minuend;
         let SubtrahendDigitCount =req.body.subtrahend;
+
+        if(minuedDigitCount<SubtrahendDigitCount){
+            response.sendErrorCustomMessage(res, "Minued Digits should be more than or equal to Subtrahend Digits", "false");
+            return;
+        }
+        
         let QuestionArray = [];
         for(let i=0;i<totalquestions;i++){
             let Minuend = getNumber(minuedDigitCount);
             let Subtrahend = getNumber(SubtrahendDigitCount);
+
+            if(Minuend<Subtrahend){
+                Subtrahend = [Minuend, Minuend = Subtrahend][0];  //To change Minued number should be greater than Subtrahend
+            }
 
             let subtractedValue = Minuend-Subtrahend;
             let Options = [subtractedValue-1,subtractedValue+1,subtractedValue-getNumber(2),subtractedValue];
