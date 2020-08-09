@@ -13,7 +13,7 @@ const sendErrorCustomMessage = (res, text, errorCode) => {
 
 const sendSuccessMessage = (res, message) => {
     res.json({
-        status: "true",
+        status: 200,
         message: message
     });
 };
@@ -21,7 +21,7 @@ const sendSuccessMessage = (res, message) => {
 
 const sendsuccessData = (res, message, data) => {
     res.json({
-        status: "true",
+        status: 200,
         message: message,
         data: data
     });

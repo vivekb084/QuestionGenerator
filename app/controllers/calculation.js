@@ -4,9 +4,9 @@ const response = require('../utils/response');
 const GenerateQuestion = async(req,res)=>{
     
     try {
-        req.checkBody('totalquestions', 'Please enter Total Question').notEmpty();
-        req.checkBody('minuend', 'Please enter Minued').notEmpty();
-        req.checkBody('subtrahend', 'Please enter Subtrahend').notEmpty();
+        req.checkQuery('totalquestions', 'Please enter Total Question').notEmpty();
+        req.checkQuery('minuend', 'Please enter Minued').notEmpty();
+        req.checkQuery('subtrahend', 'Please enter Subtrahend').notEmpty();
         const errors = req.validationErrors();
         if (errors) {
             let error = '';
@@ -17,9 +17,9 @@ const GenerateQuestion = async(req,res)=>{
             return;
         }
 
-        let totalquestions = req.body.totalquestions;
-        let minuedDigitCount =req.body.minuend;
-        let SubtrahendDigitCount =req.body.subtrahend;
+        let totalquestions = req.query.totalquestions;
+        let minuedDigitCount =req.query.minuend;
+        let SubtrahendDigitCount =req.query.subtrahend;
 
         if(minuedDigitCount<SubtrahendDigitCount){
             response.sendErrorCustomMessage(res, "Minued Digits should be more than or equal to Subtrahend Digits", 400);
