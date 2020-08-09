@@ -1,5 +1,10 @@
 # QuestionGenerator
-Generate questions with options
+Create questions with options
+
+# Generate Docker Image
+```
+docker build -t question-generator .
+```
 
 # Curl Request To Execute
 ```
