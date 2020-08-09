@@ -4,7 +4,8 @@
   "description": "Calculate difference between 2 numbers",
   "main": "app.js",
   "scripts": {
-    "test": "npm test"
+    "test": "node test",
+    "start": "node app.js"
   },
   "author": "Vivek Bindal",
   "license": "ISC",
