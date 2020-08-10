@@ -5,7 +5,7 @@ var SubtractApiUrl = 'http://localhost:3000/api/subtract'
 
 describe(`GET ${SubtractApiUrl} - Testing for /api/subtract `, () => {
 
-  it('Total Question Minued and Subtrahend empty Error', function(done) {
+  it('Total Question Minued Subtrahend and Borrow empty Error', function(done) {
       request(SubtractApiUrl ,function(error, response, body) {
         let Parsebody = JSON.parse(body);
           expect(Parsebody.status).to.equal(400);
