@@ -14,7 +14,7 @@ docker build -t question-generator
 ```
 # Download Existing Docker Image
 ```
-docker pull bindalvivek/question-generator:v5
+docker pull bindalvivek/question-generator:v1
 
 ```
 # Run the Container
@@ -55,7 +55,8 @@ http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borro
 ```
 or 
 
-``` http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=true
+``` 
+http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=true
 ```
 
 # Code Flow 
