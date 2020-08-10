@@ -1,5 +1,5 @@
 # QuestionGenerator
-Generate Question for subtraction with given digits in Minued and Subtrahend. Number can be generated based on borrow flag. If borrow flag is true then subtraction calculations with use borrow.
+Generate Question for subtraction with given digits in Minued and Subtrahend. Number can be generated based on borrow flag. If borrow flag is true then subtraction calculations will use borrow.
 
 # How To Install
   ```
