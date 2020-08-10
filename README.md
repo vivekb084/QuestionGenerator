@@ -106,13 +106,14 @@ http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borro
 
 CREATE TABLE Questions <br/>
 ( <br/>
-Minued int NOT NULL, <br/>
-Subtrahend int NOT NULL, <br/>
-Option1 i,brnt NOT NULL, <br/>
-Option2 int NOT NULL, <br/>
-Option3 int NOT NULL, <br/>
-Option4 int NOT NULL, <br/>
-correctAnswer int NOT NULL <br/>
+Minued NUMBER NOT NULL, <br/>
+Subtrahend NUMBER NOT NULL, <br/>
+Option1 NUMBER NOT NULL, <br/>
+Option2 NUMBER NOT NULL, <br/>
+Option3 NUMBER NOT NULL, <br/>
+Option4 NUMBER NOT NULL, <br/>
+correctAnswer NUMBER NOT NULL <br/>
+BorrowEnable BOOLEAN <br/>
 PRIMARY KEY (Minued,Subtrahend) <br/>
 ); <br />
  <br />
