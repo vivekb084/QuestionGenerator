@@ -17,9 +17,9 @@ const GenerateQuestion = async(req,res)=>{
             return;
         }
 
-        let totalquestions = req.query.totalquestions;
-        let minuedDigitCount =req.query.minuend;
-        let SubtrahendDigitCount =req.query.subtrahend;
+        let totalquestions = parseInt(req.query.totalquestions,10);
+        let minuedDigitCount =parseInt(req.query.minuend,10);
+        let SubtrahendDigitCount =parseInt(req.query.subtrahend,10) ;
 
         if(minuedDigitCount<SubtrahendDigitCount){
             response.sendErrorCustomMessage(res, "Minued Digits should be more than or equal to Subtrahend Digits", 400);
