@@ -14,7 +14,7 @@ docker build -t question-generator
 ```
 # Download Existing Docker Image
 ```
-docker pull bindalvivek/question-generator:v3
+docker pull bindalvivek/question-generator:v4
 
 ```
 # Run the Container
