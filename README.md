@@ -14,7 +14,7 @@ docker build -t question-generator
 ```
 # Download Existing Docker Image
 ```
-docker pull bindalvivek/question-generator:v4
+docker pull bindalvivek/question-generator:v5
 
 ```
 # Run the Container
@@ -35,15 +35,27 @@ npm test
 # Curl Request To Execute
 ```
 curl -X GET \
-  'http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5' \
+  'http://localhost:3000/api/subtract?minuend=3&subtrahend=3&totalquestions=5&borrow=false' \
   -H 'cache-control: no-cache' \
   -H 'content-type: application/json' \
-  -H 'postman-token: 81b04fdc-dedd-44bb-004b-2c44b9282d02'
+  -H 'postman-token: 340bdc44-48f1-720f-f628-791c0e376208'
 ```
 or
 
 ```
-http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5
+curl -X GET \
+  'http://localhost:3000/api/subtract?minuend=3&subtrahend=3&totalquestions=5&borrow=true' \
+  -H 'cache-control: no-cache' \
+  -H 'content-type: application/json' \
+  -H 'postman-token: ea25fc87-5ad8-f4f1-1e31-273862097cbd'
+```
+
+```
+http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=false
+```
+or 
+
+``` http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=true
 ```
 
 # Code Flow 
@@ -55,6 +67,24 @@ http://localhost:3000/api/subtract?minuend=3&subtrahend=2&totalquestions=5
 * Create 2 options by subtracting 1 from actual answer and adding 1 in actual answer (So Behaviour is not always random)
 * Create remaining 4th Option Randomly
 * Do this process totalquestions (Value given in totalquestions parameter) times 
+
+# Algorithm
+
+ * Read All Parameters
+ * Validate All Parameters
+ * Check Minued Digits count should be more than or equal to subtrahend digit count
+ * Randomly Generate Minued and Subtrahend number of given digits in parameter
+ * Check if there are all 9's at Minued corresponding to Subtrahend from last
+ * if it exist replace it with some random number
+ * Check if generated number use borrow
+ * if generated number use borrow and borrow flag is not set or generated number don't use borrow and borrow flag is set then modify the numbers
+ * To create numbers that use borrowed flag ,start from last digit of both numbers find the digit of subtrahend is less than  or equal to digit of Minued and digit of minued is not 9 ,then update subtrahend digit with minued digit +1 
+ * To create number that don't use borrow flag , start from last digit of both numbers and if digit of Subtrahend is greater than digit of Minued then update that digit of subtrahend by digit of Minued - random number
+ * Find the Difference of Minued and Subtrahend
+ * Store 2 options by subtraction 1 and adding one from original answer
+ * create one random number for option
+ * Shuffle the array
+ * if any number is negative change it to sum random number
 
 # Option Creation Logic
 
