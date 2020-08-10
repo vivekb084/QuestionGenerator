@@ -37,12 +37,18 @@ const GenerateQuestion = async(req,res)=>{
             if(Minuend<Subtrahend){
                 Subtrahend = [Minuend, Minuend = Subtrahend][0];  //To change Minued number should be greater than Subtrahend
             }
-            let borrowExistinGeneratedNumber = await checkBorrowExist(Minuend,Subtrahend,SubtrahendDigitCount)
+            let borrowExistinGeneratedNumber = await checkBorrowExist(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)
+
+
             if(borrowFlag!= borrowExistinGeneratedNumber){
               let {newMinuend,newSubstrahend} =  await ModifyNumbersforBorrow(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount,borrowFlag) //To Make Calculation Use Borrow Flag
               Minuend=newMinuend;
               Subtrahend=newSubstrahend;
             }
+
+            let newborrowExistinGeneratedNumber = await checkBorrowExist(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)
+
+            console.log("Number ",borrowExistinGeneratedNumber,Minuend,Subtrahend,newborrowExistinGeneratedNumber)
 
             let subtractedValue = Minuend-Subtrahend;
             let Options = [subtractedValue-1,subtractedValue+1,subtractedValue-getNumber(2),subtractedValue];
@@ -118,11 +124,11 @@ const convertToPositive = (array)=>{
 Check if all corressponding digits of subtrahend are smaller than minued
 */
 
-const checkBorrowExist = (Minuend,Subtrahend,SubtrahendDigitCount)=>{
+const checkBorrowExist = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)=>{
     let MinuedDigitsString = Minuend.toString(10)
     let SubtrahendDigitsString = Subtrahend.toString(10)
-    for(let i=SubtrahendDigitCount-1;i>=0;i--){
-        if(parseInt(SubtrahendDigitsString[i],10)>parseInt(MinuedDigitsString[i],10)){
+    for(let i=0;i<SubtrahendDigitCount;i++){
+        if(parseInt(SubtrahendDigitsString[SubtrahendDigitCount-1-i],10)>parseInt(MinuedDigitsString[minuedDigitCount-i-1],10)){
             return true;
         }
     }
@@ -133,22 +139,38 @@ const checkBorrowExist = (Minuend,Subtrahend,SubtrahendDigitCount)=>{
 
 const ModifyNumbersforBorrow = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount,borrowFlag)=>{
     let newMinuend =Minuend,newSubstrahend=Subtrahend;
+    let newSubtrahendString,newMinuendString = Minuend.toString(10);
     if(!borrowFlag){
-        newSubstrahend =  ModifySubstrahend(Minuend,Subtrahend)
+        newSubtrahendString = ModifySubstrahend(Minuend,Subtrahend)
+        if(newSubtrahendString[0]=='0'){
+            //Check If starting digit of Subtrahend is zero then modify corresponding digit of subtrahend and Minued with a random number
+            let diff = minuedDigitCount-SubtrahendDigitCount;
+            let randomNumber = Math.floor(Math.random() * (9)) + 1;
+            newMinuendString=newMinuendString.substring(0,diff)+randomNumber.toString(10)+newMinuendString.substring(diff+1);
+            newSubtrahendString= randomNumber.toString(10) + newSubtrahendString.substring(1)
+        }
+        newMinuend =parseInt(newMinuendString,10);
+        newSubstrahend =  parseInt(newSubtrahendString,10);
     }
     return {newMinuend,newSubstrahend};
 }
 
+
+//Replace Substrahend digit with correspoint Minued digit if Subtrahend is greater than Minued Digit
 const ModifySubstrahend = (Minued,Substrahend)=>{
     let MinuendString = Minued.toString(10);
     let SubstrahendString = Substrahend.toString(10);
     let newSubtrahendString = SubstrahendString;
-    for(let i=SubstrahendString.length-1;i>=0;i--){
-        if(parseInt(MinuendString[i],10)<parseInt(SubstrahendString[i],10)){
-            newSubtrahendString=newSubtrahendString.substring(0, i) + MinuendString[i] + newSubtrahendString.substring(i + 1)
+    let SubtrahendCharIndex=0,MinuedCharIndex=0;
+    for(let i=0;i<=SubstrahendString.length;i++){
+        SubtrahendCharIndex=SubstrahendString.length-1-i;
+        MinuedCharIndex =MinuendString.length-i-1;
+        if(parseInt(MinuendString[MinuedCharIndex],10)<parseInt(SubstrahendString[SubtrahendCharIndex],10)){
+            newSubtrahendString=newSubtrahendString.substring(0,SubtrahendCharIndex) + MinuendString[MinuedCharIndex] + newSubtrahendString.substring(SubtrahendCharIndex+1 )
         }
     }
-    return parseInt(newSubtrahendString,10);
+
+    return newSubtrahendString;
 }
 
 
