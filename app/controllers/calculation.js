@@ -7,6 +7,7 @@ const GenerateQuestion = async(req,res)=>{
         req.checkQuery('totalquestions', 'Please enter Total Question').notEmpty();
         req.checkQuery('minuend', 'Please enter Minued').notEmpty();
         req.checkQuery('subtrahend', 'Please enter Subtrahend').notEmpty();
+        req.checkQuery('borrow', 'Please enter Borrow flag to true or false').notEmpty();
         const errors = req.validationErrors();
         if (errors) {
             let error = '';
@@ -20,6 +21,8 @@ const GenerateQuestion = async(req,res)=>{
         let totalquestions = parseInt(req.query.totalquestions,10);
         let minuedDigitCount =parseInt(req.query.minuend,10);
         let SubtrahendDigitCount =parseInt(req.query.subtrahend,10) ;
+        let borrowFlag =(req.query.borrow == 'true');
+
 
         if(minuedDigitCount<SubtrahendDigitCount){
             response.sendErrorCustomMessage(res, "Minued Digits should be more than or equal to Subtrahend Digits", 400);
@@ -33,6 +36,11 @@ const GenerateQuestion = async(req,res)=>{
 
             if(Minuend<Subtrahend){
                 Subtrahend = [Minuend, Minuend = Subtrahend][0];  //To change Minued number should be greater than Subtrahend
+            }
+            let borrowExistinGeneratedNumber = await checkBorrowExist(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)
+            console.log("Borrow exxist is generated Number ",borrowExistinGeneratedNumber,Minuend,Subtrahend)
+            if(borrowFlag!= borrowExistinGeneratedNumber){
+                // Substrahend =  await ModifySubtrahendforBorrow(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount) //To Make Calculation Use Borrow Flag
             }
 
             let subtractedValue = Minuend-Subtrahend;
@@ -100,6 +108,27 @@ const convertToPositive = (array)=>{
     return newArray;
 }  
 
+const checkBorrowExist = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)=>{
+    let MinuedDigitsString = Minuend.toString(10)
+    let SubtrahendDigitsString = Subtrahend.toString(10)
+    for(let i=SubtrahendDigitCount-1;i>=0;i--){
+        if(parseInt(SubtrahendDigitsString[i],10)>parseInt(MinuedDigitsString[i],10)){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+const ModifySubtrahendforBorrow = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)=>{
+    // let newSubtrahend = 0;
+    // if(minuedDigitCount>SubtrahendDigitCount){
+    //     let randomDigit = Math.floor(Math 
+    //         .random() * (SubtrahendDigitCount - 0 + 1));
+        
+    // }
+}
 
 module.exports ={
     GenerateQuestion

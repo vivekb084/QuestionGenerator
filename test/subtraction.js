@@ -9,13 +9,13 @@ describe(`GET ${SubtractApiUrl} - Testing for /api/subtract `, () => {
       request(SubtractApiUrl ,function(error, response, body) {
         let Parsebody = JSON.parse(body);
           expect(Parsebody.status).to.equal(400);
-          expect(Parsebody.message).to.equal(' Please enter Total Question Please enter Minued Please enter Subtrahend');
+          expect(Parsebody.message).to.equal(' Please enter Total Question Please enter Minued Please enter Subtrahend Please enter Borrow flag to true or false');
           done();
       });
   });
 
   it('Please enter Total Question error', function(done) {
-    request(SubtractApiUrl+'?minuend=3&subtrahend=4' ,function(error, response, body) {
+    request(SubtractApiUrl+'?minuend=3&subtrahend=4&borrow=true' ,function(error, response, body) {
       let Parsebody = JSON.parse(body);
         expect(Parsebody.status).to.equal(400);
         expect(Parsebody.message).to.equal(' Please enter Total Question');
@@ -24,7 +24,7 @@ describe(`GET ${SubtractApiUrl} - Testing for /api/subtract `, () => {
   });
 
   it('Minued Digits should be more than or equal to Subtrahend Digits error', function(done) {
-    request(SubtractApiUrl+'?minuend=3&subtrahend=4&totalquestions=5' ,function(error, response, body) {
+    request(SubtractApiUrl+'?minuend=3&subtrahend=4&totalquestions=5&borrow=true' ,function(error, response, body) {
       let Parsebody = JSON.parse(body);
         expect(Parsebody.status).to.equal(400);
         expect(Parsebody.message).to.equal('Minued Digits should be more than or equal to Subtrahend Digits');
@@ -33,7 +33,7 @@ describe(`GET ${SubtractApiUrl} - Testing for /api/subtract `, () => {
   });
 
   it('Please enter Minued error', function(done) {
-    request(SubtractApiUrl+'?subtrahend=4&totalquestions=5' ,function(error, response, body) {
+    request(SubtractApiUrl+'?subtrahend=4&totalquestions=5&borrow=true' ,function(error, response, body) {
       let Parsebody = JSON.parse(body);
         expect(Parsebody.status).to.equal(400);
         expect(Parsebody.message).to.equal(' Please enter Minued');
@@ -42,16 +42,25 @@ describe(`GET ${SubtractApiUrl} - Testing for /api/subtract `, () => {
   });
   
   it('Please enter Subtrahend error', function(done) {
-    request(SubtractApiUrl+'?minuend=3&totalquestions=5' ,function(error, response, body) {
+    request(SubtractApiUrl+'?minuend=3&totalquestions=5&borrow=true' ,function(error, response, body) {
       let Parsebody = JSON.parse(body);
         expect(Parsebody.status).to.equal(400);
         expect(Parsebody.message).to.equal(' Please enter Subtrahend');
         done();
     });
   });
+
+  it('Please enter Borrow Flag error', function(done) {
+    request(SubtractApiUrl+'?minuend=3&totalquestions=5&subtrahend=2' ,function(error, response, body) {
+      let Parsebody = JSON.parse(body);
+        expect(Parsebody.status).to.equal(400);
+        expect(Parsebody.message).to.equal(' Please enter Borrow flag to true or false');
+        done();
+    });
+  });
   
-  it('Please enter Total Question error', function(done) {
-    request(SubtractApiUrl+'?minuend=3&subtrahend=2&totalquestions=5' ,function(error, response, body) {
+  it('Question Generated Successfully', function(done) {
+    request(SubtractApiUrl+'?minuend=3&subtrahend=2&totalquestions=5&borrow=true' ,function(error, response, body) {
       let Parsebody = JSON.parse(body);
         expect(Parsebody.status).to.equal(200);
         expect(Parsebody.message).to.equal('Questions Generated Successfully');
