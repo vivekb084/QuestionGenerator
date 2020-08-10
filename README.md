@@ -106,6 +106,8 @@ http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borro
 
 CREATE TABLE Questions <br/>
 ( <br/>
+MinuedDigitCount NUMBER NOT NULL, <br/>
+SubtrahendDigitCount NUMBER NOT NULL, <br/>
 Minued NUMBER NOT NULL, <br/>
 Subtrahend NUMBER NOT NULL, <br/>
 Option1 NUMBER NOT NULL, <br/>
