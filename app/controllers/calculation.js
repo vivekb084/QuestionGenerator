@@ -37,10 +37,11 @@ const GenerateQuestion = async(req,res)=>{
             if(Minuend<Subtrahend){
                 Subtrahend = [Minuend, Minuend = Subtrahend][0];  //To change Minued number should be greater than Subtrahend
             }
-            let borrowExistinGeneratedNumber = await checkBorrowExist(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)
-            console.log("Borrow exxist is generated Number ",borrowExistinGeneratedNumber,Minuend,Subtrahend)
+            let borrowExistinGeneratedNumber = await checkBorrowExist(Minuend,Subtrahend,SubtrahendDigitCount)
             if(borrowFlag!= borrowExistinGeneratedNumber){
-                // Substrahend =  await ModifySubtrahendforBorrow(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount) //To Make Calculation Use Borrow Flag
+              let {newMinuend,newSubstrahend} =  await ModifyNumbersforBorrow(Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount,borrowFlag) //To Make Calculation Use Borrow Flag
+              Minuend=newMinuend;
+              Subtrahend=newSubstrahend;
             }
 
             let subtractedValue = Minuend-Subtrahend;
@@ -66,6 +67,8 @@ const GenerateQuestion = async(req,res)=>{
     }
 }
 
+
+//Generate random number of given digits
 const getNumber = (digits)=>{
     let MinNum = Math.pow(10,digits-1);
     let MaxNum = Math.pow(10,digits)-1;
@@ -74,6 +77,7 @@ const getNumber = (digits)=>{
     return randomNumber;
 }
 
+//Shuffle all elements of the array
 const shuffle = (array)=>{
     var currentIndex = array.length, temporaryValue, randomIndex;
   
@@ -93,6 +97,8 @@ const shuffle = (array)=>{
     return array;
 }
 
+
+//Change Negative number to any random Number
 const convertToPositive = (array)=>{
     let newArray=[];
     for(let i=0;i<array.length;i++){
@@ -108,7 +114,11 @@ const convertToPositive = (array)=>{
     return newArray;
 }  
 
-const checkBorrowExist = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)=>{
+/*To check if we needed borrow to calculate subtraction
+Check if all corressponding digits of subtrahend are smaller than minued
+*/
+
+const checkBorrowExist = (Minuend,Subtrahend,SubtrahendDigitCount)=>{
     let MinuedDigitsString = Minuend.toString(10)
     let SubtrahendDigitsString = Subtrahend.toString(10)
     for(let i=SubtrahendDigitCount-1;i>=0;i--){
@@ -121,14 +131,26 @@ const checkBorrowExist = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCou
 
 
 
-const ModifySubtrahendforBorrow = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount)=>{
-    // let newSubtrahend = 0;
-    // if(minuedDigitCount>SubtrahendDigitCount){
-    //     let randomDigit = Math.floor(Math 
-    //         .random() * (SubtrahendDigitCount - 0 + 1));
-        
-    // }
+const ModifyNumbersforBorrow = (Minuend,Subtrahend,minuedDigitCount,SubtrahendDigitCount,borrowFlag)=>{
+    let newMinuend =Minuend,newSubstrahend=Subtrahend;
+    if(!borrowFlag){
+        newSubstrahend =  ModifySubstrahend(Minuend,Subtrahend)
+    }
+    return {newMinuend,newSubstrahend};
 }
+
+const ModifySubstrahend = (Minued,Substrahend)=>{
+    let MinuendString = Minued.toString(10);
+    let SubstrahendString = Substrahend.toString(10);
+    let newSubtrahendString = SubstrahendString;
+    for(let i=SubstrahendString.length-1;i>=0;i--){
+        if(parseInt(MinuendString[i],10)<parseInt(SubstrahendString[i],10)){
+            newSubtrahendString=newSubtrahendString.substring(0, i) + MinuendString[i] + newSubtrahendString.substring(i + 1)
+        }
+    }
+    return parseInt(newSubtrahendString,10);
+}
+
 
 module.exports ={
     GenerateQuestion
