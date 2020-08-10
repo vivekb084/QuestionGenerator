@@ -15,7 +15,6 @@ docker build -t question-generator
 # Download Existing Docker Image
 ```
 docker pull bindalvivek/question-generator:v1
-
 ```
 # Run the Container
 ```
@@ -49,6 +48,7 @@ curl -X GET \
   -H 'content-type: application/json' \
   -H 'postman-token: ea25fc87-5ad8-f4f1-1e31-273862097cbd'
 ```
+or 
 
 ```
 http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=false
