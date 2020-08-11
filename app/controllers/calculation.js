@@ -77,9 +77,13 @@ const GenerateQuestion = async(req,res)=>{
 
             let Options = [subtractedValue-1,subtractedValue+1,subtractedValue-getNumber(2),subtractedValue];
 
+
             Options = await convertToPositive(Options); //Convert All elements to positive
 
             Options = await shuffle(Options) //Shuffle the Options of array
+
+            Options = await CheckForUnique(Options,subtractedValue); //Check For Unique and if not found Update options
+
 
             let Question ={
                 'Question':i+1,
@@ -142,6 +146,22 @@ const convertToPositive = (array)=>{
         }
     }
     return newArray;
+}  
+
+const CheckForUnique = (arr,subtractedValue)=>{
+    let map = {};
+    let increment =3;
+    for(let i = 0; i < arr.length; i++) {
+       // check if object contains entry with this element as key
+       if(map[arr[i]]) {
+            arr[i]=subtractedValue+increment;
+            increment++;
+          // terminate the loop
+       }
+       // add entry in object with the element as key
+       map[arr[i]] = true;
+    }
+    return arr;
 }  
 
 /*To check if we needed borrow to calculate subtraction
