@@ -1,5 +1,5 @@
 # QuestionGenerator
-Create Subtraction Questions with options
+Generate Question for subtraction with given digits in Minued and Subtrahend. Number can be generated based on borrow flag. If borrow flag is true then subtraction calculations will use borrow.
 
 # How To Install
   ```
@@ -14,8 +14,7 @@ docker build -t question-generator
 ```
 # Download Existing Docker Image
 ```
-docker pull bindalvivek/question-generator:v5
-
+docker pull bindalvivek/question-generator:v1
 ```
 # Run the Container
 ```
@@ -49,13 +48,15 @@ curl -X GET \
   -H 'content-type: application/json' \
   -H 'postman-token: ea25fc87-5ad8-f4f1-1e31-273862097cbd'
 ```
+or 
 
 ```
 http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=false
 ```
 or 
 
-``` http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=true
+``` 
+http://localhost:3000/api/subtract?minuend=6&subtrahend=4&totalquestions=2&borrow=true
 ```
 
 # Code Flow 
@@ -103,17 +104,28 @@ or
 
 # SQL Schema (SQL Query to create Database)
 
-CREATE TABLE Questions <br/>
-( <br/>
-Minued int NOT NULL, <br/>
-Subtrahend int NOT NULL, <br/>
-Option1 i,brnt NOT NULL, <br/>
-Option2 int NOT NULL, <br/>
-Option3 int NOT NULL, <br/>
-Option4 int NOT NULL, <br/>
-correctAnswer int NOT NULL <br/>
-PRIMARY KEY (Minued,Subtrahend) <br/>
+CREATE TABLE QUERY <br/>
+( <br />
+  ID STRING NOT NULL , <br />
+  MinuedDigitCount NUMBER NOT NULL, <br/>
+  SubtrahendDigitCount NUMBER NOT NULL, <br/>
+  BorrowEnable BOOLEAN <br/>
+  PRIMARY KEY (MinuedDigitCount,SubtrahendDigitCount,BorrowEnable) <br/>
 ); <br />
  <br />
+CREATE TABLE QUESTIONS <br/>
+( <br/>
+  ID STRING NOT NULL , <br />
+  Minued NUMBER NOT NULL, <br/>
+  Subtrahend NUMBER NOT NULL, <br/>
+  Option1 NUMBER NOT NULL, <br/>
+  Option2 NUMBER NOT NULL, <br/>
+  Option3 NUMBER NOT NULL, <br/>
+  Option4 NUMBER NOT NULL, <br/>
+  correctAnswer NUMBER NOT NULL <br/>
+  PRIMARY KEY (Minued,Subtrahend) <br/>
+); <br />
+ <br />
+ 
+Query Fields (like Minued digits count, subtrahend digits count, borrow flat) are Present in QUERY table and question data is present in QUESTION table. There is one to Many Mapping present. ID Field is common that comoile both tables.
 
-All fields are going to be present and there will be no duplicate value for MINUED and Subtrahend and because there is always one to one mapping ,everything can be stored in single table
