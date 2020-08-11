@@ -74,7 +74,7 @@ const GenerateQuestion = async(req,res)=>{
             let subtractedValue = Minuend-Subtrahend;
 
 
-            if(subtractedValue<0){
+            if(subtractedValue<0){  //If contains negative value in subtraction discard the data and generate same question again
                 i--;
                 continue;
             }
