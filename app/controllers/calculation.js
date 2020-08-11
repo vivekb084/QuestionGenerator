@@ -1,6 +1,3 @@
-const response = require('../utils/response');
-
-
 /***Algorithm
  * Read All Parameters
  * Validate All Parameters
@@ -19,6 +16,8 @@ const response = require('../utils/response');
  * if any number is negative change it to sum random number
  */
 
+ 
+const response = require('../utils/response');
 
 const GenerateQuestion = async(req,res)=>{
     
@@ -53,15 +52,14 @@ const GenerateQuestion = async(req,res)=>{
             let Minuend = getNumber(minuedDigitCount);
             let Subtrahend = getNumber(SubtrahendDigitCount);
 
-            if(Minuend<Subtrahend){
-                Subtrahend = [Minuend, Minuend = Subtrahend][0];  //To change Minued number should be greater than Subtrahend
-            }
-
-
             if(checkAllDigits9CorrespondingSubtrahend(Minuend,minuedDigitCount,SubtrahendDigitCount)){
                 let randomNumber = Math.floor(Math.random() * 8)+1;
                 let newMinuendString = Minuend.toString(10).replace(/9([^9]*)$/, randomNumber.toString(10) + '$1')
                 Minuend=parseInt(newMinuendString,10)
+            }
+
+            if(Minuend<Subtrahend){
+                Subtrahend = [Minuend, Minuend = Subtrahend][0];  //To change Minued number should be greater than Subtrahend
             }
 
 
@@ -74,6 +72,12 @@ const GenerateQuestion = async(req,res)=>{
             }
 
             let subtractedValue = Minuend-Subtrahend;
+
+
+            if(subtractedValue<0){
+                i--;
+                continue;
+            }
 
             let Options = [subtractedValue-1,subtractedValue+1,subtractedValue-getNumber(2),subtractedValue];
 
