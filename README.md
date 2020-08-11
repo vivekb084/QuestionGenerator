@@ -10,7 +10,7 @@ Run the script by ./autoSetup.sh
 
 # Generate Docker Container
 ```
-docker build -t question-generator
+docker build -t question-generator .
 ```
 # Download Existing Docker Image
 ```
