@@ -77,8 +77,7 @@ const GenerateQuestion = async(req,res)=>{
 
             let Options = [subtractedValue-1,subtractedValue+1,subtractedValue-getNumber(2),subtractedValue];
 
-
-            Options = await convertToPositive(Options); //Convert All elements to positive
+            Options = await convertToPositive(Options,subtractedValue); //Convert All elements to positive
 
             Options = await shuffle(Options) //Shuffle the Options of array
 
@@ -133,12 +132,13 @@ const shuffle = (array)=>{
 
 
 //Change Negative number to any random Number
-const convertToPositive = (array)=>{
+const convertToPositive = (array,subtractedValue)=>{
     let newArray=[];
+    let increment = 2;
     for(let i=0;i<array.length;i++){
         if(array[i]<0){
-            let newNumber = Math.floor(Math 
-                .random() * (100 - 0 + 1));
+            let newNumber=subtractedValue+increment;
+            increment++;
             newArray.push(newNumber);
         }
         else{
@@ -150,7 +150,7 @@ const convertToPositive = (array)=>{
 
 const CheckForUnique = (arr,subtractedValue)=>{
     let map = {};
-    let increment =3;
+    let increment = 5;
     for(let i = 0; i < arr.length; i++) {
        // check if object contains entry with this element as key
        if(map[arr[i]]) {
